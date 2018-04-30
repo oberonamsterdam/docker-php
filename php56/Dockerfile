@@ -67,5 +67,3 @@ RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend nonin
 RUN mkdir -p /app
 VOLUME /app
 WORKDIR /app
-
-RUN php -v

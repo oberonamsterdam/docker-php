@@ -24,7 +24,7 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 RUN apt-get install -y supervisor cron nano && \
-    apt-get install -y libsqlite3-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libicu-dev libz-dev libmemcached-dev libcurl4-openssl-dev libxslt1-dev libffi-dev libssl-dev libldap2-dev libmagickwand-dev && \
+    apt-get install -y libsqlite3-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libicu-dev libz-dev libmemcached-dev libcurl4-openssl-dev libxslt1-dev libffi-dev libssl-dev libldap2-dev libmagickwand-dev gnupg && \
     apt-get install -y git mercurial locales zip
 
 # PHP Configuration

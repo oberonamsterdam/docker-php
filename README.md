@@ -85,7 +85,8 @@ PHP_OPCACHE_LIMIT=64M\
 PHP_OPCACHE_REVALIDATE=2\
 PHP_SESSION_SAVE_HANDLER=files\
 PHP_SESSION_SAVE_PATH=""\
-PHP_SMTP_HOST=localhost
+PHP_SMTP_HOST=localhost\
+PHP_MAX_INPUT_VARS=1000
 
 For example, you can add a redis container and change the redis-settings in your PHP-container:
 ```

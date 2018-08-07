@@ -10,7 +10,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PHP_OPCACHE_REVALIDATE=2 \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
-    PHP_SMTP_HOST=localhost
+    PHP_SMTP_HOST=localhost \
+    PHP_MAX_INPUT_VARS=1000
 
 COPY production.ini /usr/local/etc/php/conf.d/00-production.ini
 COPY docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini

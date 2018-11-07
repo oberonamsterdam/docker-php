@@ -18,6 +18,10 @@ COPY docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
 
 # PHP Configuration
 RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
+    echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen 
 
@@ -39,8 +43,8 @@ RUN \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install -j$(nproc) gd exif mcrypt zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache ldap && \
-    pecl install memcached-3.0.3 && docker-php-ext-enable memcached && \
-    pecl install redis-3.1.2 && docker-php-ext-enable redis && \
+    pecl install memcached && docker-php-ext-enable memcached && \
+    pecl install redis && docker-php-ext-enable redis && \
     pecl install imagick && docker-php-ext-enable imagick
 
 

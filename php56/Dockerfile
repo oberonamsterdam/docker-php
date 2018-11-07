@@ -18,6 +18,10 @@ COPY docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
 
 # PHP Configuration
 RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
+    echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen
 

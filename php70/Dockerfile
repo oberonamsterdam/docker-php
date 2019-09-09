@@ -50,9 +50,12 @@ RUN \
 
 # Install nodejs
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g yarn bower gulp pm2
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get install -y nodejs
+
+# Install npm packages
+
+RUN npm install -g yarn bower gulp pm2
 
 # Composer
 RUN \

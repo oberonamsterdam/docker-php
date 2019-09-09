@@ -1,5 +1,7 @@
 Based on https://hub.docker.com/_/php/
 
+// 2019-09-09: Updated nodejs to LTS 10.x
+
 PHP-FPM based containers, adding PHP extensions that we often use:
 
 Support for locales:

@@ -61,7 +61,7 @@ RUN \
     chmod +x /usr/local/bin/composer
 
 # Cleanup
-RUN apt-get purge -y --auto-remove apt-utils libsqlite3-dev libz-dev libcurl4-openssl-dev libffi-dev libssl-dev && \
+RUN apt-get purge -y --auto-remove apt-utils libsqlite3-dev libz-dev libcurl4-openssl-dev libssl-dev && \
     apt-get -y clean && \
     apt-get -y purge && \
     rm -rf /var/lib/apt/lists/* /tmp/*

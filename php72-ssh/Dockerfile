@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get install -y libssh2-1-dev
 
 # PHP Configuration
-RUN pecl install ssh2-alpha && docker-php-ext-enable ssh2
+RUN pecl install ssh2-1.1.2 && docker-php-ext-enable ssh2
 
 # Cleanup
 RUN apt-get purge -y --auto-remove apt-utils libssh2-1-dev && \

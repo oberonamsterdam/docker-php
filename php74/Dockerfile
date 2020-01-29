@@ -40,7 +40,7 @@ RUN mkdir -p /etc/mercurial && \
 
 # PHP Configuration
 RUN \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install -j$(nproc) gd exif zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache ldap && \
     pecl install memcached && docker-php-ext-enable memcached && \

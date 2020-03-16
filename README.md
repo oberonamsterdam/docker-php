@@ -1,5 +1,6 @@
 Based on https://hub.docker.com/_/php/
 
+// 2020-03-16: Adding support for WEBP
 // 2019-09-09: Updated nodejs to LTS 10.x
 
 PHP-FPM based containers, adding PHP extensions that we often use:

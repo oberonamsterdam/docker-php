@@ -1,5 +1,6 @@
 Based on https://hub.docker.com/_/php/
 
+// 2020-10-26: Adding composer 2.0, use composer for "composer" 1.0 or "composer-2" for 2.0
 // 2020-03-16: Adding support for WEBP
 // 2019-09-09: Updated nodejs to LTS 10.x
 

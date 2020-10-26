@@ -56,8 +56,11 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 
 # Composer
 RUN \
-    curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
+    curl https://getcomposer.org/composer-1.phar --output composer-1.phar && \
+    curl https://getcomposer.org/composer-2.phar --output composer-2.phar && \
+    mv composer-1.phar /usr/local/bin/composer && \
+    mv composer-2.phar /usr/local/bin/composer-2 && \
+    chmod +x /usr/local/bin/composer-2 && \
     chmod +x /usr/local/bin/composer
 
 # Cleanup

@@ -1,5 +1,10 @@
 Based on https://hub.docker.com/_/php/
 
+Using:
+PHP-modules management: https://github.com/mlocati/docker-php-extension-installer
+FPM-healthcheck: https://github.com/renatomefi/php-fpm-healthcheck
+
+// 2020-11-27: Adding support for mlocati/docker-php-extension-installer dependancy management, removing old list of dependancies, this also fixes the PHP56/70/71 builds. Adding healthcheck using renatomefi/php-fpm-healthcheck
 // 2020-10-26: Adding composer 2.0, use composer for "composer" 1.0 or "composer-2" for 2.0
 // 2020-03-16: Adding support for WEBP
 // 2019-09-09: Updated nodejs to LTS 10.x

@@ -13,9 +13,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PHP_SMTP_HOST=localhost \
     PHP_MAX_INPUT_VARS=1000
 
-COPY production.ini /usr/local/etc/php/conf.d/00-production.ini
-COPY docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
-COPY php-fpm-www.conf /usr/local/etc/php-fpm.d/www-extended.conf
+COPY settings/production.ini /usr/local/etc/php/conf.d/00-production.ini
+COPY settings/docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
+COPY settings/php-fpm-www.conf /usr/local/etc/php-fpm.d/www-extended.conf
 
 # PHP Configuration
 RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \

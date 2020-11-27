@@ -13,8 +13,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PHP_SMTP_HOST=localhost \
     PHP_MAX_INPUT_VARS=1000
 
-COPY production.ini /usr/local/etc/php/conf.d/00-production.ini
-COPY docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
+COPY settings/production.ini /usr/local/etc/php/conf.d/00-production.ini
+COPY settings/docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
+COPY settings/php-fpm-www.conf /usr/local/etc/php-fpm.d/www-extended.conf
 
 # PHP Configuration
 RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
@@ -26,30 +27,14 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
     echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen 
 
 # Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip
 
-RUN apt-get install -y supervisor cron nano && \
-    apt-get install -y libsqlite3-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libicu-dev libz-dev libmemcached-dev libcurl4-openssl-dev libxslt1-dev libffi-dev libssl-dev libldap2-dev libmagickwand-dev gnupg libwebp-dev && \
-    apt-get install -y git mercurial locales zip
-
-# PHP Configuration
-RUN mkdir -p /etc/mercurial && \
-    echo "[trusted]" >> /etc/mercurial/hgrc && \
-    echo "users = 1000" >> /etc/mercurial/hgrc && \
-    echo "groups = 1000" >> /etc/mercurial/hgrc 
-
-# PHP Configuration
-RUN \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ && \
-    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
-    docker-php-ext-install -j$(nproc) gd exif mcrypt zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache ldap && \
-    pecl install memcached && docker-php-ext-enable memcached && \
-    pecl install redis && docker-php-ext-enable redis && \
-    pecl install imagick && docker-php-ext-enable imagick
-
+# PHP Modules
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions && sync
+RUN install-php-extensions gd ldap exif mcrypt zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache memcached redis imagick
 
 # Install nodejs
-
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g yarn bower gulp pm2
@@ -63,14 +48,14 @@ RUN \
     chmod +x /usr/local/bin/composer-2 && \
     chmod +x /usr/local/bin/composer
 
-# Cleanup
-RUN apt-get purge -y --auto-remove apt-utils libsqlite3-dev libz-dev libcurl4-openssl-dev libssl-dev && \
-    apt-get -y clean && \
-    apt-get -y purge && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
-
 RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \
     touch /var/log/cron.log
+
+# Healthcheck
+RUN apt-get install -y libfcgi0ldbl \
+    && curl -sL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck --output /usr/local/bin/php-fpm-healthcheck \
+    && chmod +x /usr/local/bin/php-fpm-healthcheck
+HEALTHCHECK CMD php-fpm-healthcheck || exit 1
 
 RUN mkdir -p /app
 VOLUME /app

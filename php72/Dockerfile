@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+ FROM php:7.2-fpm
 MAINTAINER chin@oberon.nl
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -27,7 +27,7 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
     echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen 
 
 # Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip openssh-client
 
 # PHP Modules
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/

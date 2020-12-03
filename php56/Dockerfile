@@ -29,6 +29,9 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip openssh-client
 
+# Add SVG support for imagick
+RUN apt-get install -y --no-install-recommends libmagickcore-dev
+
 # PHP Modules
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync

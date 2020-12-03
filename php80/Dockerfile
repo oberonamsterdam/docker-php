@@ -35,7 +35,7 @@ RUN apt-get install -y --no-install-recommends libmagickcore-dev
 # PHP Modules
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
-RUN install-php-extensions gd ldap exif zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache memcached redisnimagick
+RUN install-php-extensions gd ldap exif zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache memcached redis imagick
 
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \

@@ -1,5 +1,5 @@
 FROM php:7.4-fpm
-MAINTAINER chin@oberon.nl
+LABEL maintainer="chin@oberon.nl"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TERM=xterm \
@@ -29,18 +29,21 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip openssh-client
 
-# Add SVG support for imagick
-RUN apt-get install -y --no-install-recommends libmagickcore-dev
+# Install image optimizers
+RUN apt-get install -y --no-install-recommends jpegoptim optipng gifsicle webp
 
 # PHP Modules
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
-RUN install-php-extensions gd ldap exif zip mbstring intl bcmath curl pdo_mysql xsl soap mysqli simplexml sockets xmlrpc opcache memcached redis imagick
+RUN install-php-extensions bcmath curl exif gd intl ldap mbstring memcached mysqli opcache pdo_mysql simplexml soap sockets redis xsl zip
+
+# PHP 7.4 specific Modules
+RUN install-php-extensions xmlrpc imagick
 
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get install -y nodejs && \
-    npm install -g yarn bower gulp pm2
+    npm install -g yarn bower gulp pm2 svgo
 
 # Composer
 RUN \

@@ -30,7 +30,7 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip openssh-client
 
 # Install image optimizers
-RUN apt-get install -y --no-install-recommends jpegoptim optipng gifsicle webp
+RUN apt-get install -y --no-install-recommends jpegoptim libjpeg-turbo-progs optipng gifsicle webp
 
 # PHP Modules
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/

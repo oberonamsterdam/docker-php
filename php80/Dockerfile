@@ -49,9 +49,9 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 RUN \
     curl https://getcomposer.org/composer-1.phar --output composer-1.phar && \
     curl https://getcomposer.org/composer-2.phar --output composer-2.phar && \
-    mv composer-1.phar /usr/local/bin/composer && \
-    mv composer-2.phar /usr/local/bin/composer-2 && \
-    chmod +x /usr/local/bin/composer-2 && \
+    mv composer-1.phar /usr/local/bin/composer-1 && \
+    mv composer-2.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer-1 && \
     chmod +x /usr/local/bin/composer
 
 RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \

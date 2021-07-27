@@ -5,6 +5,7 @@ Using:
 * FPM-healthcheck: https://github.com/renatomefi/php-fpm-healthcheck
 
 Changelog:
+* 2021-07-27: Making composer 2.0 the default composer (composer 1.0 can be run using /usr/local/bin/composer-1)
 * 2020-11-27: Adding support for mlocati/docker-php-extension-installer dependancy management, removing old list of dependancies, this also fixes the PHP56/70/71 builds. Adding healthcheck using renatomefi/php-fpm-healthcheck
 * 2020-10-26: Adding composer 2.0, use composer for "composer" 1.0 or "composer-2" for 2.0
 * 2020-03-16: Adding support for WEBP
@@ -71,7 +72,7 @@ services:
             - .:/app/:cached
 
     php:
-        image: oberonamsterdam/php:7.1-fpm
+        image: oberonamsterdam/php:7.4-fpm
         restart: always
         network_mode: "bridge"
         volumes:
@@ -85,7 +86,7 @@ services:
             - redis
 
     redis:
-        image: redis:4-alpine
+        image: redis:alpine
         restart: always
         network_mode: "bridge"
 ```
@@ -109,7 +110,7 @@ For example, you can add a redis container and change the redis-settings in your
 version: '3'
 services:
     php:
-        image: oberonamsterdam/php:7.1-fpm
+        image: oberonamsterdam/php:7.4-fpm
         network_mode: "bridge"
         environment:
             - "PHP_SESSION_SAVE_HANDLER=redis"
@@ -120,7 +121,7 @@ services:
             - redis
 
     redis:
-        image: redis:4-alpine
+        image: redis:alpine
         network_mode: "bridge"
 ```
 

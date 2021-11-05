@@ -15,7 +15,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 COPY settings/production.ini /usr/local/etc/php/conf.d/00-production.ini
 COPY settings/docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
-COPY settings/php-fpm-www.conf /usr/local/etc/php-fpm.d/www-extended.conf
+COPY settings/php-fpm-www.conf /usr/local/etc/php-fpm.d/zz-www-extended.conf
 
 # PHP Configuration
 RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
@@ -41,7 +41,7 @@ RUN install-php-extensions bcmath curl exif gd intl ldap mbstring memcached mysq
 RUN install-php-extensions xmlrpc imagick
 
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g yarn bower gulp pm2 svgo
 
@@ -56,6 +56,10 @@ RUN \
 
 RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \
     touch /var/log/cron.log
+
+# Set default git user
+RUN git config --global user.email "you@example.com" && \
+git config --global user.name "Your Name"
 
 # Healthcheck
 RUN apt-get install -y libfcgi0ldbl \

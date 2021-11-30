@@ -5,11 +5,11 @@ Using:
 * FPM-healthcheck: https://github.com/renatomefi/php-fpm-healthcheck
 
 Changelog:
+* 2021-11-30: Adding PHP 8.1, note that composer 2.0 is the default for PHP 8.x containers (/usr/loca/bin/composer)
 * 2021-07-27: Making composer 2.0 the default composer (composer 1.0 can be run using /usr/local/bin/composer-1)
 * 2020-11-27: Adding support for mlocati/docker-php-extension-installer dependancy management, removing old list of dependancies, this also fixes the PHP56/70/71 builds. Adding healthcheck using renatomefi/php-fpm-healthcheck
 * 2020-10-26: Adding composer 2.0, use composer for "composer" 1.0 or "composer-2" for 2.0
 * 2020-03-16: Adding support for WEBP
-* 2019-09-09: Updated nodejs to LTS 10.x
 
 PHP-FPM based containers, adding PHP extensions that we often use:
 

@@ -38,7 +38,7 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions bcmath curl exif gd intl ldap mbstring memcached mysqli opcache pdo_mysql simplexml soap sockets redis xsl zip
 
 # PHP 8.0 specific Modules
-# RUN install-php-extensions xxx
+RUN install-php-extensions xmlrpc imagick
 
 # Install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \

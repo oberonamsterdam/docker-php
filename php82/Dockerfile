@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:8.2.0RC3-fpm
 LABEL maintainer="chin@oberon.nl"
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -24,7 +24,7 @@ RUN echo "LANG=\"en_US.UTF-8\"" > /etc/default/locale && \
     echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen 
+    echo "nl_NL.UTF-8 UTF-8" >> /etc/locale.gen
 
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils supervisor cron nano git locales zip openssh-client
@@ -46,17 +46,18 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
 RUN \
     curl https://getcomposer.org/composer-1.phar --output composer-1.phar && \
     curl https://getcomposer.org/composer-2.phar --output composer-2.phar && \
-    mv composer-1.phar /usr/local/bin/composer && \
-    mv composer-2.phar /usr/local/bin/composer-2 && \
-    chmod +x /usr/local/bin/composer-2 && \
-    chmod +x /usr/local/bin/composer
+    mv composer-1.phar /usr/local/bin/composer-1 && \
+    mv composer-2.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer-1 && \
+    chmod +x /usr/local/bin/composer && \
+    ln -s /usr/local/bin/composer /usr/local/bin/composer-2
 
 RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \
     touch /var/log/cron.log
 
 # Set default git user
 RUN git config --global user.email "you@example.com" && \
-git config --global user.name "Your Name"
+    git config --global user.name "Your Name"
 
 # Healthcheck
 RUN apt-get install -y libfcgi0ldbl \

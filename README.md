@@ -5,6 +5,7 @@ Using:
 * FPM-healthcheck: https://github.com/renatomefi/php-fpm-healthcheck
 
 Changelog:
+* 2023-01-16: Adding PHP 8.2 support, same modules for PHP7.0-8.2 except some extra for PHP 5.6
 * 2021-11-30: Adding PHP 8.1, note that composer 2.0 is the default for PHP 8.x containers (/usr/loca/bin/composer)
 * 2021-07-27: Making composer 2.0 the default composer (composer 1.0 can be run using /usr/local/bin/composer-1)
 * 2020-11-27: Adding support for mlocati/docker-php-extension-installer dependancy management, removing old list of dependancies, this also fixes the PHP56/70/71 builds. Adding healthcheck using renatomefi/php-fpm-healthcheck

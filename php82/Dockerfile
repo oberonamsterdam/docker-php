@@ -1,4 +1,4 @@
-FROM php:8.2.0RC3-fpm
+FROM php:8.2-fpm
 LABEL maintainer="chin@oberon.nl"
 
 ENV DEBIAN_FRONTEND=noninteractive \

@@ -11,7 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PHP_SESSION_SAVE_HANDLER=files \
     PHP_SESSION_SAVE_PATH="" \
     PHP_SMTP_HOST=localhost \
-    PHP_MAX_INPUT_VARS=1000
+    PHP_MAX_INPUT_VARS=1000 \
+    NODE_VERSION=20
 
 COPY settings/production.ini /usr/local/etc/php/conf.d/00-production.ini
 COPY settings/docker-settings.ini /usr/local/etc/php/conf.d/01-docker-settings.ini
@@ -38,9 +39,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions bcmath curl exif gd intl imagick ldap mbstring memcached mysqli opcache pdo_mysql simplexml soap sockets redis xmlrpc xsl zip
 
 # Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g yarn bower gulp pm2 svgo
+SHELL ["/bin/bash", "--login", "-c"]
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+RUN npm install -g yarn bower gulp pm2 svgo
 
 # Composer
 RUN \
@@ -60,7 +61,7 @@ RUN git config --global user.email "you@example.com" && \
     git config --global user.name "Your Name"
 
 # Healthcheck
-RUN apt-get install -y libfcgi0ldbl \
+RUN apt-get update && apt-get install -y libfcgi-bin \
     && curl -sL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck --output /usr/local/bin/php-fpm-healthcheck \
     && chmod +x /usr/local/bin/php-fpm-healthcheck
 HEALTHCHECK CMD php-fpm-healthcheck || exit 1

@@ -67,5 +67,6 @@ RUN apt-get update && apt-get install -y libfcgi-bin \
 HEALTHCHECK CMD php-fpm-healthcheck || exit 1
 
 RUN mkdir -p /app
+RUN git config --global --add safe.directory /app
 VOLUME /app
 WORKDIR /app

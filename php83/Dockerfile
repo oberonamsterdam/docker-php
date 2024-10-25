@@ -33,10 +33,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils super
 # Install image optimizers
 RUN apt-get install -y --no-install-recommends jpegoptim libjpeg-turbo-progs optipng gifsicle webp
 
+ENV PECL_IMAGICK=/imagick@master
 # PHP Modules
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync
-RUN install-php-extensions bcmath curl exif gd intl imagick ldap mbstring memcached mysqli opcache pdo_mysql simplexml soap sockets redis xmlrpc xsl zip
+RUN install-php-extensions bcmath curl exif gd intl imagick${PECL_IMAGICK} ldap mbstring memcached mysqli opcache pdo_mysql simplexml soap sockets redis xmlrpc xsl zip
 
 # Install nodejs
 SHELL ["/bin/bash", "--login", "-c"]
@@ -67,5 +68,6 @@ RUN apt-get update && apt-get install -y libfcgi-bin \
 HEALTHCHECK CMD php-fpm-healthcheck || exit 1
 
 RUN mkdir -p /app
+RUN git config --global --add safe.directory /app
 VOLUME /app
 WORKDIR /app

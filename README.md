@@ -5,6 +5,7 @@ Using:
 * FPM-healthcheck: https://github.com/renatomefi/php-fpm-healthcheck
 
 Changelog:
+* 2024-10-25: Fixed PHP 8.3 imagick using imagick@master, updated nodejs to 20.x
 * 2023-12-04: Adding PHP 8.3 support, WARNING: imagick not supported for PHP 8.3 yet by mlocati/docker-php-extension-installer, updated nodejs to 18.x
 * 2023-01-16: Adding PHP 8.2 support, same modules for PHP7.0-8.2 except some extra for PHP 5.6
 * 2021-11-30: Adding PHP 8.1, note that composer 2.0 is the default for PHP 8.x containers (/usr/loca/bin/composer)
